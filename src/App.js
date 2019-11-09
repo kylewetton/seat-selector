@@ -1,27 +1,22 @@
-import React, { useRef } from 'react'
+import React, {Suspense, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import { Canvas, useFrame } from 'react-three-fiber'
+import { Canvas, useLoader, useFrame } from 'react-three-fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import Seat from './models/Seat'
 import './App.css'
 
-function Thing() {
-  const ref = useRef()
-  useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
-  return (
-    <mesh
-      ref={ref}
-      onClick={e => console.log('click')}
-      onPointerOver={e => console.log('hover')}
-      onPointerOut={e => console.log('unhover')}>
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshNormalMaterial attach="material" />
-    </mesh>
-  )
-}
+
+const Loading = () => (<mesh>
+       <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+       <meshNormalMaterial attach="material" />
+</mesh>)
 
 const App = () => {
   return (
     <Canvas>
-      <Thing />
+      <Suspense fallback={<Loading />}>
+        <Seat /> 
+      </Suspense>
     </Canvas>
   )
 }
