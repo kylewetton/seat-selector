@@ -4,7 +4,7 @@ import { useLoader, useFrame } from 'react-three-fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
   
-export default function Seat(props) {
+export default function Model(props) {
   const group = useRef()
   const gltf = useLoader(GLTFLoader, '/seat.glb', loader => {
     const dracoLoader = new DRACOLoader()
@@ -12,35 +12,32 @@ export default function Seat(props) {
     loader.setDRACOLoader(dracoLoader)
   })
 
-
   return (
     <group ref={group} {...props}>
       <scene name="Scene" >
-        <object3D name="air_chair" >
-          <object3D name="aircraft_seat" >
-            <object3D name="Air_chair_arm_002" >
-              <group name="bilca_003" >
-                <mesh name="Mesh.067_0" >
-                  <bufferGeometry attach="geometry" {...gltf.__$[5].geometry} />
-                  <meshStandardMaterial attach="material" {...gltf.__$[5].material} />
-                </mesh>
-                <mesh name="Mesh.067_1" >
-                  <bufferGeometry attach="geometry" {...gltf.__$[6].geometry} />
-                  <meshStandardMaterial attach="material" {...gltf.__$[6].material} />
-                </mesh>
-                <mesh name="Mesh.067_2" >
-                  <bufferGeometry attach="geometry" {...gltf.__$[7].geometry} />
-                  <meshStandardMaterial attach="material" {...gltf.__$[7].material} />
-                </mesh>
-                <mesh name="Mesh.067_3" >
-                  <bufferGeometry attach="geometry" {...gltf.__$[8].geometry} />
-                  <meshStandardMaterial attach="material" {...gltf.__$[8].material} />
-                </mesh>
-              </group>
-            </object3D>
-            <object3D name="Air_chair_arm_01" />
-          </object3D>
-        </object3D>
+        <object3D name="Area" position={[0, 6.401970863342285, 0,]} rotation={[0.1360890431413339, 0.029621457872527675, 0.42802755987904967,]} />
+        <mesh name="base" castShadow receiveShadow>
+          <bufferGeometry attach="geometry" {...gltf.__$[2].geometry} />
+          <meshPhongMaterial attach="material" color="#1f2f3b" name="Fabric" />
+        </mesh>
+        <mesh name="back" castShadow receiveShadow>
+          <bufferGeometry attach="geometry" {...gltf.__$[3].geometry} />
+          <meshPhongMaterial attach="material" color="#1f2f3b" name="Fabric" />
+        </mesh>
+        <mesh name="pillow" castShadow receiveShadow>
+          <bufferGeometry attach="geometry" {...gltf.__$[4].geometry} />
+          <meshPhongMaterial attach="material" color="#4a6f8a" name="Pillow" />
+        </mesh>
+        <group name="support" castShadow receiveShadow>
+          <mesh name="Cube.004_0" >
+            <bufferGeometry attach="geometry" {...gltf.__$[6].geometry} />
+            <meshPhongMaterial attach="material" color="#4a6f8a" name="Pillow" />
+          </mesh>
+          <mesh name="Cube.004_1" castShadow receiveShadow>
+            <bufferGeometry attach="geometry" {...gltf.__$[7].geometry} />
+            <meshPhongMaterial attach="material" color="#f2e7e6" name="Material.001" />
+          </mesh>
+        </group>
       </scene>
     </group>
   )
