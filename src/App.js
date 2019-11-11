@@ -1,11 +1,10 @@
 import * as THREE from 'three'
-import React, {Suspense, useRef } from 'react'
+import React, {Suspense, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Canvas, useLoader, useFrame } from 'react-three-fiber'
+import { Canvas, useRender } from 'react-three-fiber'
 import Seat from './models/Seat'
 import Cabin from './models/Cabin'
 import './App.css'
-
 
 // Move to helper
 function radian(degrees)
@@ -19,9 +18,11 @@ const Loading = () => (<mesh>
        <meshNormalMaterial attach="material" />
 </mesh>)
 
-const CabinWrapper = () => {
+
+const Plane = props => {
   return (
     <group>
+      <FloorPlan/>
       <Cabin />
       <mesh rotation-x={radian(-90)} receiveShadow>
         <planeBufferGeometry attach="geometry" args={[17, 150, 1]} />
@@ -77,8 +78,10 @@ const Test = () => {
 
 const App = () => {
   let camRotation = radian(-15);
+
   return (
     <Canvas
+    
     camera={{
       position: [0, 20, 110],
       rotation: [camRotation,0,0],
@@ -95,11 +98,10 @@ const App = () => {
         <ambientLight intensity={0.5} />
         <spotLight intensity={0.3} position={[-60, 5, 50]} angle={Math.PI / 2} penumbra={1} castShadow />
         <spotLight intensity={0.6} position={[50, 5, -60]} angle={Math.PI / 2} penumbra={1} castShadow />
-        {/* <directionalLight intensity={0.5} position={[0,30,0]} color="purple" castShadow /> */}
+        <directionalLight intensity={0.5} position={[0,30,0]} color="#73aed9" castShadow />
         
-          <FloorPlan/>
-          {/* <Test /> */}
-          <CabinWrapper />
+          <Plane />
+          
         </Suspense>
     </Canvas>
   )
